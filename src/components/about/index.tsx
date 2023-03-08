@@ -1,16 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useContext, useCallback, useEffect, useState } from "react";
 import { Card, Row, Col } from "antd";
 
 const AboutGuildContext = React.createContext<{
   name: string;
   server: string;
   faction: string;
-  mythicPlusScore: string;
 }>({
-  name: "Loading...",
-  server: "Loading...",
-  faction: "Loading...",
-  mythicPlusScore: "Loading...",
+  name: "",
+  server: "",
+  faction: "",
 });
 
 const AboutGuildProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -20,25 +18,21 @@ const AboutGuildProvider: React.FC<{ children: React.ReactNode }> = ({
     name: "Loading...",
     server: "Loading...",
     faction: "Loading...",
-    mythicPlusScore: "Loading...",
   });
-
   const handleSetGuildInfo = useCallback((data) => {
-    console.log("data", data.name);
     setGuildInfo({
       name: data.name,
-      server: data.realm,
-      faction: data.faction.toLowerCase(),
-      mythicPlusScore: data.mythic_plus_scores.all,
+      server: data.realm, // Update key name to 'realm'
+      faction: data.faction, // Use lowercase key name
     });
   }, []);
 
   useEffect(() => {
     async function fetchGuildInfo() {
-      console.log("request sent");
-      const response = await fetch("http://localhost:3001/guild");
+      const response = await fetch(
+        "https://klyuchik-v-durku.herokuapp.com/guild"
+      );
       const data = await response.json();
-      console.log(data);
       handleSetGuildInfo(data);
     }
 
@@ -53,9 +47,7 @@ const AboutGuildProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 
 const AboutGuild: React.FC = () => {
-  const guildInfo = React.useContext(AboutGuildContext);
-  console.log("guildinfo", guildInfo);
-
+  const guildInfo = useContext(AboutGuildContext);
   return (
     <Card title="О гильдии" style={{ maxWidth: 600 }}>
       <Row gutter={[16, 16]}>
@@ -75,12 +67,6 @@ const AboutGuild: React.FC = () => {
           <Card>
             <div>Фракция:</div>
             <div>{guildInfo.faction}</div>
-          </Card>
-        </Col>
-        <Col span={24}>
-          <Card>
-            <div>Рейтинг в Мифик+:</div>
-            <div>{guildInfo.mythicPlusScore}</div>
           </Card>
         </Col>
       </Row>
