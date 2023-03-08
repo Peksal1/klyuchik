@@ -7,9 +7,10 @@ interface GuildMember {
     class: string;
     active_spec_name: string;
   };
+  rank: number;
 }
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 40;
 
 const GuildMembers: React.FC = () => {
   const [members, setMembers] = useState<GuildMember[]>([]);
@@ -35,31 +36,43 @@ const GuildMembers: React.FC = () => {
   const endIndex = startIndex + PAGE_SIZE;
   const displayedMembers = members.slice(startIndex, endIndex);
 
+  const groupedMembers = displayedMembers.reduce((acc, member) => {
+    if (!acc[member.rank]) {
+      acc[member.rank] = [];
+    }
+    acc[member.rank].push(member);
+    return acc;
+  }, {});
+
   return (
     <>
-      <List
-        grid={{ gutter: 16, column: 4 }}
-        header={<div>Состав гильдии</div>}
-        dataSource={displayedMembers}
-        renderItem={(member) => (
-          <List.Item>
-            <Card
-              cover={
-                <Avatar
-                  shape="circle"
-                  size={64}
-                  style={{ backgroundColor: "#87d068" }}
-                />
-              }
-            >
-              <Card.Meta
-                title={member.character.name}
-                description={`${member.character.active_spec_name} ${member.character.class}`}
-              />
-            </Card>
-          </List.Item>
-        )}
-      />
+      {Object.entries(groupedMembers).map(([rank, members]) => (
+        <div key={`rank-${rank}`}>
+          <h2>Rank {rank}</h2>
+          <List
+            grid={{ gutter: 16, column: 4 }}
+            dataSource={members}
+            renderItem={(member) => (
+              <List.Item>
+                <Card
+                  cover={
+                    <Avatar
+                      shape="circle"
+                      size={64}
+                      style={{ backgroundColor: "#87d068" }}
+                    />
+                  }
+                >
+                  <Card.Meta
+                    title={member.character.name}
+                    description={`${member.character.active_spec_name} ${member.character.class}`}
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </div>
+      ))}
       <Pagination
         current={page}
         pageSize={PAGE_SIZE}
