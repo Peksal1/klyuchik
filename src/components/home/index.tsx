@@ -3,11 +3,12 @@ import { Row, Col } from "antd";
 
 const Home: React.FC = () => {
   return (
-    <Row>
-      <Col span={16}>
+    <Row style={{ background: "grey" }}>
+      <Col xs={24} lg={16}>
         <div
           style={{
             marginTop: "20px",
+            marginLeft: "20px",
             height: "200px",
             width: "100%",
             alignContent: "center",
@@ -16,36 +17,36 @@ const Home: React.FC = () => {
           }}
         ></div>
       </Col>
-      <Col span={8}>
+      <Col xs={24} lg={8}>
         <div
           style={{
             marginTop: "60px",
-            height: "460px",
+            height: "43.3vh",
             width: "60%",
             marginBottom: "24px",
             background: "brown",
             marginLeft: "auto",
-            marginRight: 0,
+            marginRight: "24px",
           }}
         ></div>
         <div
           style={{
-            height: "460px",
+            height: "43.3vh",
             width: "60%",
             marginBottom: "24px",
             background: "brown",
             marginLeft: "auto",
-            marginRight: 0,
+            marginRight: "24px",
           }}
         ></div>
         <div
           style={{
-            height: "460px",
+            height: "43.3vh",
             width: "60%",
             marginBottom: "60px",
             background: "brown",
             marginLeft: "auto",
-            marginRight: 0,
+            marginRight: "24px",
           }}
         ></div>
       </Col>
