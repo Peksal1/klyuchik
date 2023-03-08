@@ -1,56 +1,42 @@
-import React from "react";
-import { Row, Col } from "antd";
+import React, { useEffect, useState } from "react";
+import { List } from "antd";
 
-const Home: React.FC = () => {
+interface GuildMember {
+  character: {
+    name: string;
+    class: string;
+    level: number;
+  };
+}
+
+const GuildMembers: React.FC = () => {
+  const [members, setMembers] = useState<GuildMember[]>([]);
+
+  useEffect(() => {
+    async function fetchGuildMembers() {
+      const response = await fetch(
+        "https://klyuchik-v-durku-backend.herokuapp.com/guild-members"
+      );
+      const data = await response.json();
+      setMembers(data);
+    }
+
+    fetchGuildMembers();
+  }, []);
+  console.log(members);
   return (
-    <Row>
-      <Col span={16}>
-        <div
-          style={{
-            marginTop: "20px",
-            height: "200px",
-            width: "100%",
-            alignContent: "center",
-            background:
-              "url(https://sun9-33.userapi.com/impg/MYqMyr8dzERYTaNi-DnRkwrjpXGyyWNB5yOGtw/c8fZlY9WeMw.jpg?size=1100x688&quality=96&sign=04e4bd9009a36e430b4135c843354444&type=album) center/cover no-repeat",
-          }}
-        ></div>
-      </Col>
-      <Col span={8}>
-        <div
-          style={{
-            marginTop: "60px",
-            height: "460px",
-            width: "60%",
-            marginBottom: "24px",
-            background: "brown",
-            marginLeft: "auto",
-            marginRight: 0,
-          }}
-        ></div>
-        <div
-          style={{
-            height: "460px",
-            width: "60%",
-            marginBottom: "24px",
-            background: "brown",
-            marginLeft: "auto",
-            marginRight: 0,
-          }}
-        ></div>
-        <div
-          style={{
-            height: "460px",
-            width: "60%",
-            marginBottom: "60px",
-            background: "brown",
-            marginLeft: "auto",
-            marginRight: 0,
-          }}
-        ></div>
-      </Col>
-    </Row>
+    <List
+      header={<div>Состав гильдии</div>}
+      bordered
+      dataSource={members}
+      renderItem={(member) => (
+        <List.Item>
+          {member.character.name} ({member.character.class}{" "}
+          {member.character.level})
+        </List.Item>
+      )}
+    />
   );
 };
 
-export default Home;
+export default GuildMembers;
