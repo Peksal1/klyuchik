@@ -6,6 +6,8 @@ interface GuildMember {
     name: string;
     class: string;
     active_spec_name: string;
+    profile_url: string;
+    achievement_points: number;
   };
   rank: number;
 }
@@ -170,16 +172,21 @@ const GuildMembers: React.FC = () => {
                   cover={
                     <Avatar
                       shape="circle"
+                      src={member.character.profile_url}
                       size={64}
                       style={{ backgroundColor: getClassColor(member.character.class) }}
                     />
                   }
                 >
                   <Card.Meta
-                    title={member.character.name}
+                    title={<a style={{ color: 'black' }} href={member.character.profile_url} target="_blank" rel="noopener noreferrer">{member.character.name}</a>}
                     description={`${member.character.active_spec_name} ${member.character.class}`}
+                  /> <Card.Meta
+                    style={{ marginTop: 5 }}
+                    description={`${member.character.achievement_points} Очков достижений`}
                   />
                 </Card>
+
               </List.Item>
             )}
           />
