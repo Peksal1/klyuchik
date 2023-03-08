@@ -1,0 +1,28 @@
+.app-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.content-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .content-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .ant-col {
+    width: 100% !important;
+  }
+
+  .ant-col:first-child {
+    margin-bottom: 20px !important;
+  }
+
+  .ant-col:last-child {
+    margin-top: 20px !important;
+  }
+}

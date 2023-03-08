@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: orange;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-width: 40px;
+}
+
+.header-text {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-left: 10px;
+}
+
+.login-button {
+  background-color: #ffffff;
+  color: orange;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: 10px;
+}
