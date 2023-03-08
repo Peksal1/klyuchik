@@ -197,7 +197,7 @@ const GuildMembers: React.FC = () => {
         pageSize={PAGE_SIZE}
         total={members.length}
         onChange={handlePageChange}
-        style={{ marginTop: 16, textAlign: "center" }}
+        style={{ marginTop: 16, textAlign: "center", marginBottom: 16, display: "flex", justifyContent: "flex-end" }}
       />
     </>
   );
