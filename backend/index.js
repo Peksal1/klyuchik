@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const GUILD_NAME = "Ключик в дурку";
 const SERVER_NAME = "Howling Fjord";

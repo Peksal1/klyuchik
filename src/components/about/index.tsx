@@ -30,7 +30,7 @@ const AboutGuildProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     async function fetchGuildInfo() {
       const response = await fetch(
-        "https://klyuchik-v-durku.herokuapp.com/guild"
+        "https://klyuchik-v-durku-backend.herokuapp.com/guild"
       );
       const data = await response.json();
       handleSetGuildInfo(data);
