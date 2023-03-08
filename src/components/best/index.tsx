@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { List } from "antd";
+import { List, Card, Avatar, Pagination } from "antd";
 
 interface GuildMember {
   character: {
     name: string;
     class: string;
-    level: number;
+    active_spec_name: string;
   };
 }
 
+const PAGE_SIZE = 12;
+
 const GuildMembers: React.FC = () => {
   const [members, setMembers] = useState<GuildMember[]>([]);
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     async function fetchGuildMembers() {
@@ -23,19 +26,48 @@ const GuildMembers: React.FC = () => {
 
     fetchGuildMembers();
   }, []);
-  console.log(members);
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const startIndex = (page - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const displayedMembers = members.slice(startIndex, endIndex);
+
   return (
-    <List
-      header={<div>Состав гильдии</div>}
-      bordered
-      dataSource={members}
-      renderItem={(member) => (
-        <List.Item>
-          {member.character.name} ({member.character.class}{" "}
-          {member.character.level})
-        </List.Item>
-      )}
-    />
+    <>
+      <List
+        grid={{ gutter: 16, column: 4 }}
+        header={<div>Состав гильдии</div>}
+        dataSource={displayedMembers}
+        renderItem={(member) => (
+          <List.Item>
+            <Card
+              cover={
+                <Avatar
+                  shape="circle"
+                  size={64}
+                  style={{ backgroundColor: "#87d068" }}
+                />
+              }
+            >
+              <Card.Meta
+                title={member.character.name}
+                description={`${member.character.active_spec_name} ${member.character.class}`}
+              />
+            </Card>
+          </List.Item>
+        )}
+      />
+      <Pagination
+        current={page}
+        pageSize={PAGE_SIZE}
+        total={members.length}
+        onChange={handlePageChange}
+        style={{ marginTop: 16, textAlign: "center" }}
+      />
+    </>
   );
 };
 
