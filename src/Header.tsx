@@ -2,7 +2,7 @@ import { Avatar, Layout } from "antd";
 import Title from "antd/es/typography/Title";
 import React from "react";
 import LoginPopover from "./components/loginPopover/index.tsx";
-import sanitar from "./images/sanitar.jpg";
+import sanitar from "./images/sanitar2.jpg";
 import "./styles/Header.css";
 
 const { Header } = Layout;

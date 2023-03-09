@@ -5,13 +5,13 @@ import {
   AiFillYoutube,
   AiFillTwitterSquare,
 } from "react-icons/ai";
-import sanitar from "./images/sanitar.jpg";
+import sanitar from "./images/sanitar2.jpg";
 
 const Footer = () => {
   return (
     <footer
       style={{
-        backgroundColor: "#FFA500",
+        backgroundColor: "#8c1616",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -47,7 +47,7 @@ const Footer = () => {
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
         <div style={{ marginRight: "10px" }}>
-          <span>&copy; Ключик в дурку 2019</span>
+          <span style={{ color: "white" }}>&copy; Ключик в дурку 2019</span>
         </div>
         <div>
           <Avatar size={30} src={sanitar} style={{ marginRight: "24px" }} />

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: orange;
+  background-color: #8c1616;
 }
 
 .logo-container {
@@ -23,7 +23,7 @@
 
 .login-button {
   background-color: #ffffff;
-  color: orange;
+  color: #8c1616;
   border: none;
   font-size: 1rem;
   cursor: pointer;

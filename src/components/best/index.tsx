@@ -44,9 +44,7 @@ const GuildMembers: React.FC = () => {
     member.character.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const classFilteredMembers = classFilter
-    ? filteredMembers.filter(
-      (member) => member.character.class === classFilter
-    )
+    ? filteredMembers.filter((member) => member.character.class === classFilter)
     : filteredMembers;
   const sortedMembers = classFilteredMembers.sort((a, b) => a.rank - b.rank);
   const displayedMembers = sortedMembers.slice(startIndex, endIndex);
@@ -86,26 +84,26 @@ const GuildMembers: React.FC = () => {
   }
   const handleSetClassFilter = useCallback((value) => {
     setClassFilter(value);
-    setPage(1)
-  }, [])
+    setPage(1);
+  }, []);
 
   const handleSetSearchValue = useCallback((value) => {
     setSearchTerm(value);
-    setPage(1)
-  }, [])
+    setPage(1);
+  }, []);
 
   function getClassColor(className: string): string {
     switch (className) {
       case "Warrior":
         return "#C79C6E";
-      case 'Monk':
-        return '#00FF98';
-      case 'Evoker':
-        return '#33937F';
-      case 'Demon Hunter':
-        return '#A330C9';
-      case 'Death Knight':
-        return '#C41E3A';
+      case "Monk":
+        return "#00FF98";
+      case "Evoker":
+        return "#33937F";
+      case "Demon Hunter":
+        return "#A330C9";
+      case "Death Knight":
+        return "#C41E3A";
       case "Paladin":
         return "#F58CBA";
       case "Hunter":
@@ -128,8 +126,14 @@ const GuildMembers: React.FC = () => {
   }
 
   return (
-    <>
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
+    <div style={{ background: "grey" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: 16,
+        }}
+      >
         <Input.Search
           placeholder="Поиск по имени персонажа"
           onChange={(e) => handleSetSearchValue(e.target.value)}
@@ -137,7 +141,7 @@ const GuildMembers: React.FC = () => {
         />
         <Select
           defaultValue=""
-          style={{ marginLeft: 16, width: 200, marginTop: 20 }}
+          style={{ marginLeft: 16, width: 200, marginTop: 20, marginRight: 20 }}
           onChange={(value) => handleSetClassFilter(value)}
         >
           <Option value="">Все классы</Option>
@@ -152,54 +156,79 @@ const GuildMembers: React.FC = () => {
           <Option value="Druid">Друид</Option>
         </Select>
       </div>
-      {Object.entries(groupedMembers as [GuildMember[]]).map(([rank, members]) => (
-        <div key={`rank-${rank}`}>
-          <h2> {getRankName(rank)}</h2>
-          <List
-            grid={{ gutter: 16, column: 4 }}
-            dataSource={members.filter((member) => {
-              const nameMatch = member.character.name
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-              const classMatch = classFilter
-                ? member.character.class === classFilter
-                : true;
-              return nameMatch && classMatch;
-            })}
-            renderItem={(member) => (
-              <List.Item>
-                <Card
-                  cover={
-                    <Avatar
-                      shape="circle"
-                      src={member.character.profile_url}
-                      size={64}
-                      style={{ backgroundColor: getClassColor(member.character.class) }}
+      {Object.entries(groupedMembers as [GuildMember[]]).map(
+        ([rank, members]) => (
+          <div key={`rank-${rank}`}>
+            <h2 style={{ marginLeft: 20, color: "white" }}>
+              {" "}
+              {getRankName(rank)}
+            </h2>
+            <List
+              style={{ marginRight: 20, marginLeft: 20 }}
+              grid={{ gutter: 16, column: 4 }}
+              dataSource={members.filter((member) => {
+                const nameMatch = member.character.name
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase());
+                const classMatch = classFilter
+                  ? member.character.class === classFilter
+                  : true;
+                return nameMatch && classMatch;
+              })}
+              renderItem={(member) => (
+                <List.Item>
+                  <Card
+                    cover={
+                      <Avatar
+                        shape="circle"
+                        src={member.character.profile_url}
+                        size={64}
+                        style={{
+                          backgroundColor: getClassColor(
+                            member.character.class
+                          ),
+                        }}
+                      />
+                    }
+                  >
+                    <Card.Meta
+                      title={
+                        <a
+                          style={{ color: "black" }}
+                          href={member.character.profile_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {member.character.name}
+                        </a>
+                      }
+                      description={`${member.character.active_spec_name} ${member.character.class}`}
+                    />{" "}
+                    <Card.Meta
+                      style={{ marginTop: 5 }}
+                      description={`${member.character.achievement_points} Очков достижений`}
                     />
-                  }
-                >
-                  <Card.Meta
-                    title={<a style={{ color: 'black' }} href={member.character.profile_url} target="_blank" rel="noopener noreferrer">{member.character.name}</a>}
-                    description={`${member.character.active_spec_name} ${member.character.class}`}
-                  /> <Card.Meta
-                    style={{ marginTop: 5 }}
-                    description={`${member.character.achievement_points} Очков достижений`}
-                  />
-                </Card>
-
-              </List.Item>
-            )}
-          />
-        </div>
-      ))}
+                  </Card>
+                </List.Item>
+              )}
+            />
+          </div>
+        )
+      )}
       <Pagination
         current={page}
         pageSize={PAGE_SIZE}
         total={members.length}
         onChange={handlePageChange}
-        style={{ marginTop: 16, textAlign: "center", marginBottom: 16, display: "flex", justifyContent: "flex-end" }}
+        style={{
+          marginTop: 20,
+          marginRight: 20,
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
       />
-    </>
+    </div>
   );
 };
 
