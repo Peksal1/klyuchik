@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Avatar, Typography, Card, Button } from "antd";
-import sanitar from "./sanitar.jpg";
+import sanitar from "./sanitar2.jpg";
 
 const { Title } = Typography;
 

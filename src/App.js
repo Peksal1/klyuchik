@@ -21,22 +21,35 @@ const App = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          backgroundColor: "#773333", // dark red background color for Horde feel
+          border: "none", // remove border
         }}
       >
         <Item key="home" style={{ width: "20%", textAlign: "center" }}>
-          <Link to="/">Дом</Link>
+          <Link to="/" style={{ color: "#E8BB3D" }}>
+            Дом
+          </Link>{" "}
+          {/* Yellow text color for Horde feel */}
         </Item>
         <Item key="about" style={{ width: "20%", textAlign: "center" }}>
-          <Link to="/about">О Гильдии</Link>
+          <Link to="/about" style={{ color: "#E8BB3D" }}>
+            О Гильдии
+          </Link>
         </Item>
         <Item key="boosting" style={{ width: "20%", textAlign: "center" }}>
-          <Link to="/boosting">Бустинг</Link>
+          <Link to="/boosting" style={{ color: "#E8BB3D" }}>
+            Бустинг
+          </Link>
         </Item>
         <Item key="guides" style={{ width: "20%", textAlign: "center" }}>
-          <Link to="/guides">Гайды</Link>
+          <Link to="/guides" active style={{ color: "#E8BB3D" }}>
+            Гайды
+          </Link>
         </Item>
         <Item key="best" style={{ width: "20%", textAlign: "center" }}>
-          <Link to="/best">Лучшие</Link>
+          <Link to="/best" style={{ color: "#E8BB3D" }}>
+            Лучшие
+          </Link>
         </Item>
       </Menu>
       <div style={{ backgroundColor: "#F2F2F2", padding: "0 10%" }}>
