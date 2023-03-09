@@ -1,4 +1,5 @@
-import { Layout } from "antd";
+import { Avatar, Layout } from "antd";
+import Title from "antd/es/typography/Title";
 import React from "react";
 import LoginPopover from "./components/loginPopover/index.tsx";
 import sanitar from "./images/sanitar.jpg";
@@ -10,14 +11,10 @@ function AppHeader() {
   return (
     <Header className="header">
       <div className="logo-container">
-        <img
-          src={sanitar}
-          alt="Logo"
-          className="logo"
-          style={{ width: "50%" }}
-        />
-
-        <h1 className="header-text">Ключик В Дурку</h1>
+        <Avatar size={50} src={sanitar} style={{ marginRight: "24px" }} />
+        <Title level={3} style={{ display: "inline-block", color: "white" }}>
+          Ключик в Дурку
+        </Title>
       </div>
       <LoginPopover />
     </Header>

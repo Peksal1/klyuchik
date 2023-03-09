@@ -1,5 +1,8 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Avatar, Typography, Card, Button } from "antd";
+import sanitar from "./sanitar.jpg";
+
+const { Title } = Typography;
 
 const Home: React.FC = () => {
   return (
@@ -18,37 +21,48 @@ const Home: React.FC = () => {
         ></div>
       </Col>
       <Col xs={24} lg={8}>
-        <div
+        <Card
           style={{
+            height: "60vh",
+            background: "#36393F",
+            width: "70%",
+            marginBottom: "24px",
+            marginLeft: "auto",
+            marginRight: "40px",
             marginTop: "60px",
-            height: "43.3vh",
-            width: "60%",
-            marginBottom: "24px",
-            background: "brown",
-            marginLeft: "auto",
-            marginRight: "24px",
           }}
-        ></div>
-        <div
-          style={{
-            height: "43.3vh",
-            width: "60%",
-            marginBottom: "24px",
-            background: "brown",
-            marginLeft: "auto",
-            marginRight: "24px",
-          }}
-        ></div>
-        <div
-          style={{
-            height: "43.3vh",
-            width: "60%",
-            marginBottom: "60px",
-            background: "brown",
-            marginLeft: "auto",
-            marginRight: "24px",
-          }}
-        ></div>
+          cover={
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Avatar
+                size={64}
+                src={sanitar}
+                style={{
+                  marginLeft: "24px",
+                  marginTop: "24px",
+                  marginRight: "24px",
+                }}
+              />
+              <Title
+                level={3}
+                style={{ color: "white", display: "inline-block" }}
+              >
+                Ключик в Дурку
+              </Title>
+            </div>
+          }
+        >
+          <Title style={{ color: "white" }} level={4}>
+            Заходите в Discord, пообщаемся!
+          </Title>
+          <Button
+            type="primary"
+            href="https://discord.gg/fjVkeJaKjc"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join Discord
+          </Button>
+        </Card>
       </Col>
     </Row>
   );
