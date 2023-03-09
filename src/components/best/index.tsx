@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { List, Card, Avatar, Pagination, Select, Input } from "antd";
+import { List, Card, Avatar, Pagination, Select, Input, Spin } from "antd";
 
 interface GuildMember {
   character: {
@@ -21,7 +21,7 @@ const GuildMembers: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [classFilter, setClassFilter] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-
+  const [isPageLoading, setIsPageLoading] = useState(true);
   useEffect(() => {
     async function fetchGuildMembers() {
       const response = await fetch(
@@ -29,6 +29,7 @@ const GuildMembers: React.FC = () => {
       );
       const data = await response.json();
       setMembers(data as GuildMember[]);
+      setIsPageLoading(false);
     }
 
     fetchGuildMembers();
@@ -125,8 +126,19 @@ const GuildMembers: React.FC = () => {
     }
   }
 
-  return (
-    <div style={{ background: "grey" }}>
+  return isPageLoading ? (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <Spin size="large" />
+    </div>
+  ) : (
+    <>
       <div
         style={{
           display: "flex",
@@ -159,10 +171,7 @@ const GuildMembers: React.FC = () => {
       {Object.entries(groupedMembers as [GuildMember[]]).map(
         ([rank, members]) => (
           <div key={`rank-${rank}`}>
-            <h2 style={{ marginLeft: 20, color: "white" }}>
-              {" "}
-              {getRankName(rank)}
-            </h2>
+            <h2 style={{ marginLeft: 20 }}> {getRankName(rank)}</h2>
             <List
               style={{ marginRight: 20, marginLeft: 20 }}
               grid={{ gutter: 16, column: 4 }}
@@ -187,6 +196,8 @@ const GuildMembers: React.FC = () => {
                           backgroundColor: getClassColor(
                             member.character.class
                           ),
+                          marginTop: 20,
+                          marginLeft: 20,
                         }}
                       />
                     }
@@ -222,13 +233,14 @@ const GuildMembers: React.FC = () => {
         onChange={handlePageChange}
         style={{
           marginTop: 20,
+          marginBottom: 55,
           marginRight: 20,
           textAlign: "center",
           display: "flex",
           justifyContent: "flex-end",
         }}
       />
-    </div>
+    </>
   );
 };
 

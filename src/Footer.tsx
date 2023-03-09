@@ -6,6 +6,7 @@ import {
   AiFillTwitterSquare,
 } from "react-icons/ai";
 import sanitar from "./images/sanitar2.jpg";
+import "./styles/Footer.css";
 
 const Footer = () => {
   return (

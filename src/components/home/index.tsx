@@ -6,7 +6,7 @@ const { Title } = Typography;
 
 const Home: React.FC = () => {
   return (
-    <Row style={{ background: "grey" }}>
+    <Row>
       <Col xs={24} lg={16}>
         <div
           style={{
