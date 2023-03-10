@@ -1,0 +1,14 @@
+.guide-title-style {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 10px 0;
+  border-bottom: 2px solid #1890ff;
+  padding-bottom: 10px;
+}
+
+.guide-description-style {
+  text-align: justify;
+  font-size: 16px;
+  margin-top: 10px;
+}

@@ -1,0 +1,47 @@
+.event-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.event-image {
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.event-details h2 {
+  margin-bottom: 10px;
+}
+
+.event-details p {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.event-details button {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.event-details button:hover {
+  background-color: #40a9ff;
+}

@@ -39,7 +39,10 @@ const BoostingPrices: React.FC = () => {
   };
 
   return (
-    <Card title="Цены на бустинг" style={{ maxWidth: 800 }}>
+    <Card
+      title="Цены на бустинг"
+      style={{ width: "100%", marginTop: "20px", height: "inherit" }}
+    >
       <Row gutter={[16, 16]}>
         <Col span={6}>
           <div style={{ borderRight: "1px solid #d9d9d9", height: "100%" }}>
@@ -69,6 +72,42 @@ const BoostingPrices: React.FC = () => {
           {selectedOption === "mythicPlus" && (
             <div>
               <Row gutter={[16, 16]} justify="start">
+                <Card style={{ maxWidth: 400 }}>
+                  <Avatar size={64} icon={<img src="placeholder" alt="" />} />
+                  <div style={{ fontWeight: "bold", marginTop: "12px" }}>
+                    Placeholder Title
+                  </div>
+                  <div style={{ marginTop: "8px" }}>
+                    Placeholder Description
+                  </div>
+                  <div style={{ marginTop: "8px", color: "#1890ff" }}>
+                    {prices.mythicPlus}
+                  </div>
+                </Card>
+                <Card style={{ maxWidth: 400 }}>
+                  <Avatar size={64} icon={<img src="placeholder" alt="" />} />
+                  <div style={{ fontWeight: "bold", marginTop: "12px" }}>
+                    Placeholder Title
+                  </div>
+                  <div style={{ marginTop: "8px" }}>
+                    Placeholder Description
+                  </div>
+                  <div style={{ marginTop: "8px", color: "#1890ff" }}>
+                    {prices.mythicPlus}
+                  </div>
+                </Card>
+                <Card style={{ maxWidth: 400 }}>
+                  <Avatar size={64} icon={<img src="placeholder" alt="" />} />
+                  <div style={{ fontWeight: "bold", marginTop: "12px" }}>
+                    Placeholder Title
+                  </div>
+                  <div style={{ marginTop: "8px" }}>
+                    Placeholder Description
+                  </div>
+                  <div style={{ marginTop: "8px", color: "#1890ff" }}>
+                    {prices.mythicPlus}
+                  </div>
+                </Card>
                 <Card style={{ maxWidth: 400 }}>
                   <Avatar size={64} icon={<img src="placeholder" alt="" />} />
                   <div style={{ fontWeight: "bold", marginTop: "12px" }}>

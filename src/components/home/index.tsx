@@ -1,24 +1,88 @@
-import React from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Row, Col, Avatar, Typography, Card, Button } from "antd";
 import sanitar from "./sanitar2.jpg";
 
 const { Title } = Typography;
 
+const AboutGuildProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [guildInfo, setGuildInfo] = useState({
+    name: "Loading...",
+    server: "Loading...",
+    faction: "Loading...",
+  });
+  const handleSetGuildInfo = useCallback((data) => {
+    setGuildInfo({
+      name: data.name,
+      server: data.realm, // Update key name to 'realm'
+      faction: data.faction, // Use lowercase key name
+    });
+  }, []);
+
+  useEffect(() => {
+    async function fetchGuildInfo() {
+      const response = await fetch(
+        "https://klyuchik-v-durku-backend.herokuapp.com/guild"
+      );
+      const data = await response.json();
+      handleSetGuildInfo(data);
+    }
+
+    fetchGuildInfo();
+  }, [handleSetGuildInfo]);
+
+  return (
+    <AboutGuildContext.Provider value={guildInfo}>
+      {children}
+    </AboutGuildContext.Provider>
+  );
+};
+const AboutGuildContext = React.createContext<{
+  name: string;
+  server: string;
+  faction: string;
+}>({
+  name: "",
+  server: "",
+  faction: "",
+});
+
+const AboutGuild: React.FC = () => {
+  const guildInfo = useContext(AboutGuildContext);
+  return (
+    <Card title="О гильдии" style={{ maxWidth: 600, marginTop: "20px" }}>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <Card>
+            <div>Название гильдии:</div>
+            <div>{guildInfo.name}</div>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card>
+            <div>Сервер:</div>
+            <div>{guildInfo.server}</div>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card>
+            <div>Фракция:</div>
+            <div>{guildInfo.faction}</div>
+          </Card>
+        </Col>
+      </Row>
+    </Card>
+  );
+};
+
 const Home: React.FC = () => {
   return (
     <Row>
       <Col xs={24} lg={16}>
-        <div
-          style={{
-            marginTop: "20px",
-            marginLeft: "20px",
-            height: "200px",
-            width: "100%",
-            alignContent: "center",
-            background:
-              "url(https://sun9-33.userapi.com/impg/MYqMyr8dzERYTaNi-DnRkwrjpXGyyWNB5yOGtw/c8fZlY9WeMw.jpg?size=1100x688&quality=96&sign=04e4bd9009a36e430b4135c843354444&type=album) center/cover no-repeat",
-          }}
-        ></div>
+        <AboutGuildProvider>
+          <AboutGuild />
+        </AboutGuildProvider>
       </Col>
       <Col xs={24} lg={8}>
         <Card
@@ -68,4 +132,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default React.memo(Home);

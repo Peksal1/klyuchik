@@ -2,12 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { Menu } from "antd";
 import Header from "./Header.tsx";
-import About from "./components/about/index.tsx";
+import Events from "./components/events/index.tsx";
 import Home from "./components/home/index.tsx";
 import Boosting from "./components/boosting/index.tsx";
 import Guides from "./components/guides/index.tsx";
 import Best from "./components/best/index.tsx";
 import Footer from "./Footer.tsx";
+import RegistrationPage from "./components/authentification/Register.tsx";
 
 const { Item } = Menu;
 
@@ -27,13 +28,13 @@ const App = () => {
       >
         <Item key="home" style={{ width: "20%", textAlign: "center" }}>
           <Link to="/" style={{ color: "#E8BB3D" }}>
-            Дом
+            О Гильдии
           </Link>{" "}
           {/* Yellow text color for Horde feel */}
         </Item>
         <Item key="about" style={{ width: "20%", textAlign: "center" }}>
-          <Link to="/about" style={{ color: "#E8BB3D" }}>
-            О Гильдии
+          <Link to="/events" style={{ color: "#E8BB3D" }}>
+            Ивенты
           </Link>
         </Item>
         <Item key="boosting" style={{ width: "20%", textAlign: "center" }}>
@@ -55,7 +56,8 @@ const App = () => {
       <div style={{ backgroundColor: "#F2F2F2", padding: "0 10%" }}>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
+          <Route exact path="/register" component={RegistrationPage} />
+          <Route exact path="/events" component={Events} />
           <Route exact path="/boosting" component={Boosting} />
           <Route exact path="/guides" component={Guides} />
           <Route exact path="/best" component={Best} />

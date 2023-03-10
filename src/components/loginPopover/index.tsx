@@ -1,6 +1,7 @@
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Popover } from "antd";
 import React, { useState } from "react";
-import { Popover, Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
@@ -38,6 +39,9 @@ const LoginPopover = () => {
         <Button type="primary" htmlType="submit">
           Log in
         </Button>
+        <Link to="/register" style={{ color: "#E8BB3D" }}>
+          <Button className="register-button">Регистрация</Button>
+        </Link>
       </Form.Item>
     </Form>
   );
