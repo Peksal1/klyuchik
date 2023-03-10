@@ -5,9 +5,7 @@ import {
   AiFillYoutube,
   AiFillTwitterSquare,
 } from "react-icons/ai";
-import sanitar from "./images/sanitar2.jpg";
 import "./styles/Footer.css";
-
 const Footer = () => {
   return (
     <footer
@@ -51,7 +49,11 @@ const Footer = () => {
           <span style={{ color: "white" }}>&copy; Ключик в дурку 2019</span>
         </div>
         <div>
-          <Avatar size={30} src={sanitar} style={{ marginRight: "24px" }} />
+          <Avatar
+            size={30}
+            src="/sanitar2.jpg"
+            style={{ marginRight: "24px" }}
+          />
         </div>
       </div>
     </footer>

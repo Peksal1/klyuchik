@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Row, Col, Avatar, Typography, Card, Button } from "antd";
-import sanitar from "./sanitar2.jpg";
 
 const { Title } = Typography;
 
@@ -99,7 +98,7 @@ const Home: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center" }}>
               <Avatar
                 size={64}
-                src={sanitar}
+                src="/sanitar2.jpg"
                 style={{
                   marginLeft: "24px",
                   marginTop: "24px",
