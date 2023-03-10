@@ -1,31 +1,31 @@
-{
-  "compilerOptions": {
-    "target": "es5",
-    "noEmit": true,
-    "pretty": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "checkJs": false,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "downlevelIteration": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "strictBindCallApply": true,
-    "jsx": "react",
-    "lib": ["esnext", "dom"],
-    "baseUrl": ".",
-    "paths": {
-      "components/*": ["./src/components/*"],
-      "lib/*": ["./src/lib/*"],
-      "scenes/*": ["./src/scenes/*"],
-      "store": ["./src/store/index.ts"],
-      "store/*": ["./src/store/*"],
-      "styles/*": ["./src/styles/*"]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "assets"]
-}
+// {
+//   "compilerOptions": {
+//     "target": "es5",
+//     "noEmit": true,
+//     "pretty": true,
+//     "skipLibCheck": true,
+//     "allowSyntheticDefaultImports": true,
+//     "allowJs": true,
+//     "checkJs": false,
+//     "module": "esnext",
+//     "esModuleInterop": true,
+//     "experimentalDecorators": true,
+//     "downlevelIteration": true,
+//     "moduleResolution": "node",
+//     "resolveJsonModule": true,
+//     "strictBindCallApply": true,
+//     "jsx": "react",
+//     "lib": ["esnext", "dom"],
+//     "baseUrl": ".",
+//     "paths": {
+//       "components/*": ["./src/components/*"],
+//       "lib/*": ["./src/lib/*"],
+//       "scenes/*": ["./src/scenes/*"],
+//       "store": ["./src/store/index.ts"],
+//       "store/*": ["./src/store/*"],
+//       "styles/*": ["./src/styles/*"]
+//     }
+//   },
+//   "include": ["src/**/*"],
+//   "exclude": ["node_modules", "assets"]
+// }
