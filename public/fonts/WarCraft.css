@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "WarCraft"; /* Имя шрифта */
+  src: url("./WarCraft.ttf") format("truetype"); /* Путь к файлу TTF-шрифта */
+}
+
+body {
+  font-family: "WarCraft", sans-serif; /* Использование шрифта */
+}

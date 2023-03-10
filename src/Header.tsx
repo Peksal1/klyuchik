@@ -11,7 +11,14 @@ function AppHeader() {
     <Header className="header">
       <div className="logo-container">
         <Avatar size={50} src="/sanitar2.jpg" style={{ marginRight: "24px" }} />
-        <Title level={3} style={{ display: "inline-block", color: "white" }}>
+        <Title
+          level={3}
+          style={{
+            display: "inline-block",
+            color: "white",
+            fontFamily: "WarCraft",
+          }}
+        >
           Ключик в Дурку
         </Title>
       </div>

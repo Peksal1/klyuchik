@@ -107,7 +107,10 @@ const Home: React.FC = () => {
               />
               <Title
                 level={3}
-                style={{ color: "white", display: "inline-block" }}
+                style={{
+                  color: "white",
+                  display: "inline-block",
+                }}
               >
                 Ключик в Дурку
               </Title>
