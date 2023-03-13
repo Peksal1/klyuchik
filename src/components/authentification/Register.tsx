@@ -5,9 +5,29 @@ const RegistrationPage: React.FC = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     setLoading(true);
-    console.log(values); // replace with actual registration logic
+    try {
+      const response = await fetch(
+        "https://klyuchik-v-durku-backend.herokuapp.com/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            role: "user", // set a default value for the role
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data); // replace with actual success/failure logic
+    } catch (error) {
+      console.error(error); // replace with actual error handling
+    }
     setLoading(false);
   };
 
