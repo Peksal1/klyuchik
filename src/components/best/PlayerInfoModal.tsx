@@ -1,6 +1,7 @@
 import { Modal, Row, Col, Tooltip } from "antd";
 import React from "react";
 import "./PlayerInfoModal.css";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 interface PlayerInfoModalProps {
   playerInfoModalVisible: boolean;
@@ -116,9 +117,9 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
 
       if (cellIndex === 0) {
         content = highestRun.mythic_level.toString();
-        cellColor = "green";
+        cellColor = "grey";
         tooltipContent =
-          `${getWeeklyTextFromDungeonLevel(highestRun.mythic_level)}\n` +
+          `${getWeeklyTextFromDungeonLevel(highestRun.mythic_level)}\n\n` +
           getDungeonRussianName(highestRun.dungeon) +
           " " +
           highestRun.mythic_level;
@@ -129,10 +130,10 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
             acc.mythic_level < curr.mythic_level ? acc : curr
           )
           .mythic_level.toString();
-        cellColor = "green";
+        cellColor = "grey";
         tooltipContent =
-          `${getWeeklyTextFromDungeonLevel(highestRuns[4].mythic_level)}\n` +
-          "Лучшие подземелья:\n" +
+          `${getWeeklyTextFromDungeonLevel(highestRuns[4].mythic_level)}\n\n` +
+          "Лучшие подземелья:\n\n" +
           highestRuns
             .slice(0, 4)
             .map(
@@ -147,10 +148,10 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
             acc.mythic_level < curr.mythic_level ? acc : curr
           )
           .mythic_level.toString();
-        cellColor = "green";
+        cellColor = "grey";
         tooltipContent =
           `${getWeeklyTextFromDungeonLevel(highestRuns[8].mythic_level)}\n` +
-          "Лучшие подземелья:\n" +
+          "Лучшие подземелья:\n\n" +
           highestRuns
             .slice(0, 8)
             .map(
@@ -165,15 +166,49 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
       content = `0/${cellIndex === 0 ? "1" : cellIndex === 1 ? "4" : "8"}`;
     }
 
+    const isWeeklyComplete =
+      highestRuns.length >= (cellIndex === 0 ? 1 : cellIndex === 1 ? 4 : 8);
+
     return (
       <Tooltip overlayClassName="mythic-tooltip" title={tooltipContent}>
         <Col
           className="big-square-cell"
-          style={{ backgroundColor: cellColor }}
+          style={{
+            backgroundColor: cellColor,
+            color: isWeeklyComplete ? "#10fb12" : "black",
+            userSelect: "none",
+          }}
           key={`cell-${cellIndex}`}
           span={6}
         >
-          <div>{content}</div>
+          {isWeeklyComplete ? (
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                padding: 8,
+              }}
+            >
+              <CheckCircleOutlined style={{ color: "#10fb12", fontSize: 20 }} />
+            </div>
+          ) : null}
+          {content} {isWeeklyComplete && " (M+)"}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "0",
+              left: "0",
+              padding: 8,
+            }}
+          >
+            {isWeeklyComplete
+              ? getTreasureFromLevel(
+                  highestRuns[cellIndex === 0 ? 0 : cellIndex === 1 ? 3 : 7]
+                    .mythic_level
+                )
+              : null}
+          </div>
         </Col>
       </Tooltip>
     );
