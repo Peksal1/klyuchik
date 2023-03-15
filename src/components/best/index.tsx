@@ -1,6 +1,15 @@
+import {
+  Avatar,
+  Button,
+  Card,
+  Input,
+  List,
+  Pagination,
+  Select,
+  Spin,
+} from "antd";
 import React, { useCallback, useEffect, useState } from "react";
-import { List, Card, Avatar, Pagination, Select, Input, Spin } from "antd";
-
+import PlayerInfoModal from "./PlayerInfoModal.tsx";
 interface GuildMember {
   character: {
     name: string;
@@ -20,6 +29,8 @@ const GuildMembers: React.FC = () => {
   const [members, setMembers] = useState<GuildMember[]>([]);
   const [page, setPage] = useState<number>(1);
   const [classFilter, setClassFilter] = useState<string>("");
+  const [playerInfoModalVisible, setPlayerModalVisible] = useState(false);
+  const [playerInfo, setPlayerInfo] = useState(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isPageLoading, setIsPageLoading] = useState(true);
   useEffect(() => {
@@ -126,6 +137,36 @@ const GuildMembers: React.FC = () => {
     }
   }
 
+  const handleOpenPlayerModal = useCallback((name) => {
+    setPlayerModalVisible(true);
+    async function fetchPlayerWeeklyInfo() {
+      const response = await fetch(
+        `https://klyuchik-v-durku-backend.herokuapp.com/guild-members/weekly-keys/${name}`
+      );
+      const data = await response.json();
+      setPlayerInfo(data);
+      setIsPageLoading(false);
+    }
+
+    fetchPlayerWeeklyInfo();
+  }, []);
+
+  const handleClosePlayerModal = useCallback(() => {
+    setPlayerModalVisible(false);
+    setPlayerInfo(null);
+  }, []);
+
+  // const getMythicPlusLevel = (count) => {
+  //   if (playerInfo.mythic_plus_weekly_highest_level_runs.length >= count) {
+  //     return playerInfo.mythic_plus_weekly_highest_level_runs
+  //       .slice(0, count)
+  //       .reduce((acc, curr) => {
+  //         return acc.mythic_level < curr.mythic_level ? acc : curr;
+  //       }).mythic_level;
+  //   }
+  //   return `${playerInfo.mythic_plus_weekly_highest_level_runs.length}/${count}`;
+  // };
+
   return isPageLoading ? (
     <div
       style={{
@@ -139,6 +180,15 @@ const GuildMembers: React.FC = () => {
     </div>
   ) : (
     <>
+      (
+      {playerInfo && (
+        <PlayerInfoModal
+          playerInfoModalVisible={playerInfoModalVisible}
+          handleClosePlayerModal={handleClosePlayerModal}
+          playerInfo={playerInfo}
+        />
+      )}
+      )
       <div
         style={{
           display: "flex",
@@ -219,6 +269,13 @@ const GuildMembers: React.FC = () => {
                       style={{ marginTop: 5 }}
                       description={`${member.character.achievement_points} Очков достижений`}
                     />
+                    <Button
+                      onClick={() =>
+                        handleOpenPlayerModal(member.character.name)
+                      }
+                    >
+                      Мои успехи!
+                    </Button>
                   </Card>
                 </List.Item>
               )}
