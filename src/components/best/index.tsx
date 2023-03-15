@@ -156,17 +156,6 @@ const GuildMembers: React.FC = () => {
     setPlayerInfo(null);
   }, []);
 
-  // const getMythicPlusLevel = (count) => {
-  //   if (playerInfo.mythic_plus_weekly_highest_level_runs.length >= count) {
-  //     return playerInfo.mythic_plus_weekly_highest_level_runs
-  //       .slice(0, count)
-  //       .reduce((acc, curr) => {
-  //         return acc.mythic_level < curr.mythic_level ? acc : curr;
-  //       }).mythic_level;
-  //   }
-  //   return `${playerInfo.mythic_plus_weekly_highest_level_runs.length}/${count}`;
-  // };
-
   return isPageLoading ? (
     <div
       style={{
@@ -180,7 +169,6 @@ const GuildMembers: React.FC = () => {
     </div>
   ) : (
     <>
-      (
       {playerInfo && (
         <PlayerInfoModal
           playerInfoModalVisible={playerInfoModalVisible}
@@ -188,7 +176,6 @@ const GuildMembers: React.FC = () => {
           playerInfo={playerInfo}
         />
       )}
-      )
       <div
         style={{
           display: "flex",
