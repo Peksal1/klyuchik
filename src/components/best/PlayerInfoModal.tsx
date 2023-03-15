@@ -18,6 +18,29 @@ interface PlayerInfoModalProps {
   };
 }
 
+function getDungeonRussianName(dungeon: string): string {
+  switch (dungeon) {
+    case "Shadowmoon Burial Grounds":
+      return "Некрополь Призрачной Луны";
+    case "The Azure Vault":
+      return "Лазурное Хранилище  ";
+    case "Temple of the Jade Serpent":
+      return "Храм Нефритовой Змеи";
+    case "Algeth'ar Academy":
+      return "Академия Алгет'ар";
+    case "Court of Stars":
+      return "Квартал Звезд";
+    case "Ruby Life Pools":
+      return "Рубиновые Омуты Жизни";
+    case "The Nokhud Offensive":
+      return "Наступление клана Нокхуд";
+    case "Halls of Valor":
+      return "Чертоги Доблести";
+    default:
+      return dungeon;
+  }
+}
+
 const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
   playerInfoModalVisible,
   handleClosePlayerModal,
@@ -33,6 +56,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
   ) => {
     let content = "";
     let cellColor = "";
+    let tooltipContent = "";
 
     if (highestRuns.length > 0) {
       const highestRun = highestRuns.reduce((acc, curr) =>
@@ -42,6 +66,10 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
       if (cellIndex === 0) {
         content = highestRun.mythic_level.toString();
         cellColor = "green";
+        tooltipContent =
+          getDungeonRussianName(highestRun.dungeon) +
+          " " +
+          highestRun.mythic_level;
       } else if (highestRuns.length >= 4 && cellIndex === 1) {
         content = highestRuns
           .slice(0, 4)
@@ -50,6 +78,15 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           )
           .mythic_level.toString();
         cellColor = "green";
+        tooltipContent =
+          "Лучшие подземелья:\n" +
+          highestRuns
+            .slice(0, 4)
+            .map(
+              (run) =>
+                getDungeonRussianName(run.dungeon) + " " + run.mythic_level
+            )
+            .join("\n");
       } else if (highestRuns.length >= 8 && cellIndex === 2) {
         content = highestRuns
           .slice(0, 8)
@@ -58,22 +95,24 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           )
           .mythic_level.toString();
         cellColor = "green";
+        tooltipContent =
+          "Лучшие подземелья:\n" +
+          highestRuns
+            .slice(0, 8)
+            .map(
+              (run) =>
+                getDungeonRussianName(run.dungeon) + " " + run.mythic_level
+            )
+            .join("\n");
       } else {
-        content = `${playerInfo.mythic_plus_weekly_highest_level_runs.length}/${
-          cellIndex === 1 ? "4" : "8"
-        }`;
+        content = `${highestRuns.length}/${cellIndex === 1 ? "4" : "8"}`;
       }
     } else {
       content = `0/0`;
     }
 
     return (
-      <Tooltip
-        overlayClassName="mythic-tooltip"
-        title={`Лучшие подземелья:\n${highestRuns
-          .map((run) => run.dungeon + " " + run.mythic_level)
-          .join("\n")}`}
-      >
+      <Tooltip overlayClassName="mythic-tooltip" title={tooltipContent}>
         <Col
           className="big-square-cell"
           style={{ backgroundColor: cellColor }}
