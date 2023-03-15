@@ -51,7 +51,9 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           .mythic_level.toString();
         cellColor = "green";
       } else {
-        content = `0/${cellIndex === 1 ? "4" : "8"}`;
+        content = `${playerInfo.mythic_plus_weekly_highest_level_runs.length}/${
+          cellIndex === 1 ? "4" : "8"
+        }`;
       }
     } else {
       content = `0/0`;
