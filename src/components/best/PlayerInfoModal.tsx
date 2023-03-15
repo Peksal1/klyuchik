@@ -1,4 +1,4 @@
-import { Modal, Row, Col, Tooltip } from "antd";
+import { Modal, Row, Col, Tooltip, Avatar } from "antd";
 import React from "react";
 import "./PlayerInfoModal.css";
 import { CheckCircleOutlined } from "@ant-design/icons";
@@ -8,6 +8,12 @@ interface PlayerInfoModalProps {
   handleClosePlayerModal: () => void;
   playerInfo: {
     name: string;
+    thumbnail_url: string;
+    mythic_plus_scores_by_season: {
+      scores: {
+        all: string;
+      };
+    };
     mythic_plus_weekly_highest_level_runs: {
       mythic_level: number;
       dungeon: string;
@@ -220,44 +226,64 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
       open={playerInfoModalVisible}
       onCancel={handleClosePlayerModal}
       footer={null}
+      width="50%"
     >
       <Row gutter={16}>
-        <Col span={6} className="big-square-cell-title">
-          Рейды
+        <Col span={8}>
+          <Row justify="center" align="middle">
+            <Col span={24} style={{ textAlign: "center" }}>
+              <Avatar
+                src={playerInfo.thumbnail_url}
+                alt={playerInfo.name}
+                style={{ width: "10em", height: "10em", borderRadius: "50%" }}
+              />
+              <h2 style={{ fontWeight: "bold", marginTop: "1em" }}>
+                {playerInfo.name}
+              </h2>
+              <p>{playerInfo.mythic_plus_scores_by_season[0].scores.all} Рио</p>
+            </Col>
+          </Row>
         </Col>
-        <Col span={6} className="big-square-cell">
-          WIP
-        </Col>
-        <Col span={6} className="big-square-cell">
-          WIP
-        </Col>
-        <Col span={6} className="big-square-cell">
-          WIP
-        </Col>
-      </Row>
-      <Row gutter={16}>
-        <Col span={6} className="big-square-cell-title">
-          Мифик+
-        </Col>
-        {Array.from({ length: 3 }).map((_, index) =>
-          renderMythicPlusCell(
-            playerInfo.mythic_plus_weekly_highest_level_runs,
-            index
-          )
-        )}
-      </Row>
-      <Row gutter={16}>
-        <Col span={6} className="big-square-cell-title">
-          PvP
-        </Col>
-        <Col span={6} className="big-square-cell">
-          WIP
-        </Col>
-        <Col span={6} className="big-square-cell">
-          WIP
-        </Col>
-        <Col span={6} className="big-square-cell">
-          WIP
+        <Col span={16}>
+          <Row gutter={16}>
+            <Col span={6} className="big-square-cell-title">
+              Рейды
+            </Col>
+            <Col span={6} className="big-square-cell">
+              WIP
+            </Col>
+            <Col span={6} className="big-square-cell">
+              WIP
+            </Col>
+            <Col span={6} className="big-square-cell">
+              WIP
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={6} className="big-square-cell-title">
+              Мифик+
+            </Col>
+            {Array.from({ length: 3 }).map((_, index) =>
+              renderMythicPlusCell(
+                playerInfo.mythic_plus_weekly_highest_level_runs,
+                index
+              )
+            )}
+          </Row>
+          <Row gutter={16}>
+            <Col span={6} className="big-square-cell-title">
+              PvP
+            </Col>
+            <Col span={6} className="big-square-cell">
+              WIP
+            </Col>
+            <Col span={6} className="big-square-cell">
+              WIP
+            </Col>
+            <Col span={6} className="big-square-cell">
+              WIP
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Modal>
