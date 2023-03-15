@@ -41,6 +41,57 @@ function getDungeonRussianName(dungeon: string): string {
   }
 }
 
+function getTreasureFromLevel(level: number): number {
+  if (level >= 20) {
+    return 421;
+  }
+  switch (level) {
+    case 2:
+      return 382;
+    case 3:
+      return 385;
+    case 4:
+      return 385;
+    case 5:
+      return 389;
+    case 6:
+      return 389;
+    case 7:
+      return 392;
+    case 8:
+      return 395;
+    case 9:
+      return 395;
+    case 10:
+      return 398;
+    case 11:
+      return 402;
+    case 12:
+      return 405;
+    case 13:
+      return 408;
+    case 14:
+      return 408;
+    case 15:
+      return 411;
+    case 16:
+      return 415;
+    case 17:
+      return 415;
+    case 18:
+      return 418;
+    case 19:
+      return 418;
+    default:
+      return -1; // or any other value to indicate an invalid level
+  }
+}
+
+function getWeeklyTextFromDungeonLevel(mythic_level: number): string {
+  return `${getTreasureFromLevel(
+    mythic_level
+  )}-й уровень предметов - эпохальный режим (${mythic_level}-й уровень)`;
+}
 const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
   playerInfoModalVisible,
   handleClosePlayerModal,
@@ -67,6 +118,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
         content = highestRun.mythic_level.toString();
         cellColor = "green";
         tooltipContent =
+          `${getWeeklyTextFromDungeonLevel(highestRun.mythic_level)}\n` +
           getDungeonRussianName(highestRun.dungeon) +
           " " +
           highestRun.mythic_level;
@@ -79,6 +131,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           .mythic_level.toString();
         cellColor = "green";
         tooltipContent =
+          `${getWeeklyTextFromDungeonLevel(highestRuns[4].mythic_level)}\n` +
           "Лучшие подземелья:\n" +
           highestRuns
             .slice(0, 4)
@@ -96,6 +149,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           .mythic_level.toString();
         cellColor = "green";
         tooltipContent =
+          `${getWeeklyTextFromDungeonLevel(highestRuns[8].mythic_level)}\n` +
           "Лучшие подземелья:\n" +
           highestRuns
             .slice(0, 8)
@@ -108,7 +162,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
         content = `${highestRuns.length}/${cellIndex === 1 ? "4" : "8"}`;
       }
     } else {
-      content = `0/0`;
+      content = `0/${cellIndex === 0 ? "1" : cellIndex === 1 ? "4" : "8"}`;
     }
 
     return (
