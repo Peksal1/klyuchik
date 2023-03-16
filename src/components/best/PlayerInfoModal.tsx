@@ -2,13 +2,27 @@ import { Modal, Row, Col, Tooltip, Avatar } from "antd";
 import React from "react";
 import "./PlayerInfoModal.css";
 import { CheckCircleOutlined } from "@ant-design/icons";
-
+import {
+  getColorByScore,
+  getDungeonRussianName,
+  getTreasureFromLevel,
+  getDifficultyRussianName,
+} from "../../lib/helpers/utils.tsx";
 interface PlayerInfoModalProps {
   playerInfoModalVisible: boolean;
   handleClosePlayerModal: () => void;
   playerInfo: {
     name: string;
     thumbnail_url: string;
+    raid_progression: {
+      [`vault-of-the-incarnates`]: {
+        heroic_bosses_killed: number;
+        mythic_bosses_killed: number;
+        normal_bosses_killed: number;
+        summary: string;
+        total_bosses: number;
+      };
+    };
     mythic_plus_scores_by_season: {
       scores: {
         all: string;
@@ -25,75 +39,6 @@ interface PlayerInfoModalProps {
   };
 }
 
-function getDungeonRussianName(dungeon: string): string {
-  switch (dungeon) {
-    case "Shadowmoon Burial Grounds":
-      return "Некрополь Призрачной Луны";
-    case "The Azure Vault":
-      return "Лазурное Хранилище  ";
-    case "Temple of the Jade Serpent":
-      return "Храм Нефритовой Змеи";
-    case "Algeth'ar Academy":
-      return "Академия Алгет'ар";
-    case "Court of Stars":
-      return "Квартал Звезд";
-    case "Ruby Life Pools":
-      return "Рубиновые Омуты Жизни";
-    case "The Nokhud Offensive":
-      return "Наступление клана Нокхуд";
-    case "Halls of Valor":
-      return "Чертоги Доблести";
-    default:
-      return dungeon;
-  }
-}
-
-function getTreasureFromLevel(level: number): number {
-  if (level >= 20) {
-    return 421;
-  }
-  switch (level) {
-    case 2:
-      return 382;
-    case 3:
-      return 385;
-    case 4:
-      return 385;
-    case 5:
-      return 389;
-    case 6:
-      return 389;
-    case 7:
-      return 392;
-    case 8:
-      return 395;
-    case 9:
-      return 395;
-    case 10:
-      return 398;
-    case 11:
-      return 402;
-    case 12:
-      return 405;
-    case 13:
-      return 408;
-    case 14:
-      return 408;
-    case 15:
-      return 411;
-    case 16:
-      return 415;
-    case 17:
-      return 415;
-    case 18:
-      return 418;
-    case 19:
-      return 418;
-    default:
-      return -1; // or any other value to indicate an invalid level
-  }
-}
-
 function getWeeklyTextFromDungeonLevel(mythic_level: number): string {
   return `${getTreasureFromLevel(
     mythic_level
@@ -104,6 +49,77 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
   handleClosePlayerModal,
   playerInfo,
 }) => {
+  function renderRaidProgressCell(raidProgression, cellIndex) {
+    const difficulties = ["mythic", "heroic", "normal"];
+    const bossKills = difficulties.map(
+      (difficulty) =>
+        raidProgression["vault-of-the-incarnates"][
+          `${difficulty}_bosses_killed`
+        ] || 0
+    );
+    const requiredKills = [2, 4, 6][cellIndex];
+
+    let cellText = "";
+    let textColor = "#10fb12";
+    let cellColor = "";
+    let tooltipContent = "";
+
+    for (let i = 0; i < difficulties.length; i++) {
+      const difficulty = difficulties[i];
+      const kills = bossKills[i];
+
+      if (kills >= requiredKills) {
+        cellText = `${getDifficultyRussianName(difficulty)}`;
+        cellColor = "grey";
+        tooltipContent = `${getDifficultyRussianName(difficulty)} (${kills})`;
+        break;
+      }
+    }
+
+    if (!cellText) {
+      const maxKills = Math.max(...bossKills);
+      cellText = `${maxKills}/${requiredKills}`;
+      cellColor = "white";
+      textColor = "black";
+    }
+
+    return (
+      <Tooltip
+        overlayClassName="mythic-tooltip"
+        title={tooltipContent !== "" ? tooltipContent : null}
+      >
+        <Col
+          className="big-square-cell"
+          style={{
+            backgroundColor: cellColor,
+            color: textColor,
+            userSelect: "none",
+          }}
+          key={`cell-${cellIndex}`}
+          span={6}
+        >
+          {cellColor !== "" ? (
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                padding: 8,
+              }}
+            >
+              {cellColor !== "white" ? (
+                <CheckCircleOutlined
+                  style={{ color: textColor, fontSize: 20 }}
+                />
+              ) : null}
+            </div>
+          ) : null}
+          {cellText}
+        </Col>
+      </Tooltip>
+    );
+  }
+
   const renderMythicPlusCell = (
     highestRuns: {
       mythic_level: number;
@@ -138,7 +154,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           .mythic_level.toString();
         cellColor = "grey";
         tooltipContent =
-          `${getWeeklyTextFromDungeonLevel(highestRuns[4].mythic_level)}\n\n` +
+          `${getWeeklyTextFromDungeonLevel(highestRuns[3].mythic_level)}\n\n` +
           "Лучшие подземелья:\n\n" +
           highestRuns
             .slice(0, 4)
@@ -156,7 +172,7 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
           .mythic_level.toString();
         cellColor = "grey";
         tooltipContent =
-          `${getWeeklyTextFromDungeonLevel(highestRuns[8].mythic_level)}\n` +
+          `${getWeeklyTextFromDungeonLevel(highestRuns[7].mythic_level)}\n` +
           "Лучшие подземелья:\n\n" +
           highestRuns
             .slice(0, 8)
@@ -240,7 +256,17 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
               <h2 style={{ fontWeight: "bold", marginTop: "1em" }}>
                 {playerInfo.name}
               </h2>
-              <p>{playerInfo.mythic_plus_scores_by_season[0].scores.all} Рио</p>
+              <p
+                style={{
+                  color: `${getColorByScore(
+                    playerInfo.mythic_plus_scores_by_season[0].scores.all
+                  )}`,
+                }}
+              >
+                {playerInfo.mythic_plus_scores_by_season[0].scores.all} Рио
+              </p>
+              {playerInfo.raid_progression["vault-of-the-incarnates"].summary}{" "}
+              Опыт в рейде
             </Col>
           </Row>
         </Col>
@@ -249,15 +275,9 @@ const PlayerInfoModal: React.FC<PlayerInfoModalProps> = ({
             <Col span={6} className="big-square-cell-title">
               Рейды
             </Col>
-            <Col span={6} className="big-square-cell">
-              WIP
-            </Col>
-            <Col span={6} className="big-square-cell">
-              WIP
-            </Col>
-            <Col span={6} className="big-square-cell">
-              WIP
-            </Col>
+            {Array.from({ length: 3 }).map((_, index) =>
+              renderRaidProgressCell(playerInfo.raid_progression, index)
+            )}
           </Row>
           <Row gutter={16}>
             <Col span={6} className="big-square-cell-title">
