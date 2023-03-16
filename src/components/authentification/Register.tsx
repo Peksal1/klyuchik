@@ -7,6 +7,7 @@ const RegistrationPage: React.FC = () => {
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
+    console.log(values);
     try {
       const response = await fetch(
         "https://klyuchik-v-durku-backend.herokuapp.com/register",
@@ -20,6 +21,7 @@ const RegistrationPage: React.FC = () => {
             email: values.email,
             password: values.password,
             role: "user", // set a default value for the role
+            wow_nickname: values.wow_nickname, // include the wow_nickname field
           }),
         }
       );
@@ -61,6 +63,14 @@ const RegistrationPage: React.FC = () => {
         ]}
       >
         <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="wow_nickname"
+        label="WoW Nickname"
+        rules={[{ required: true, message: "Please enter your WoW nickname" }]}
+      >
+        <Input />
       </Form.Item>
 
       <Form.Item>
