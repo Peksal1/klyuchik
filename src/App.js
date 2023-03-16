@@ -6,6 +6,7 @@ import Events from "./components/events/index.tsx";
 import Home from "./components/home/index.tsx";
 import Boosting from "./components/boosting/index.tsx";
 import Guides from "./components/guides/index.tsx";
+import StreamPage from "./components/streams/index.tsx";
 import Best from "./components/best/index.tsx";
 import Footer from "./Footer.tsx";
 import RegistrationPage from "./components/authentification/Register.tsx";
@@ -26,30 +27,35 @@ const App = () => {
           border: "none", // remove border
         }}
       >
-        <Item key="home" style={{ width: "20%", textAlign: "center" }}>
+        <Item key="home" style={{ width: "16%", textAlign: "center" }}>
           <Link to="/" style={{ color: "#E8BB3D" }}>
             О Гильдии
           </Link>{" "}
           {/* Yellow text color for Horde feel */}
         </Item>
-        <Item key="about" style={{ width: "20%", textAlign: "center" }}>
+        <Item key="about" style={{ width: "16%", textAlign: "center" }}>
           <Link to="/events" style={{ color: "#E8BB3D" }}>
             Ивенты
           </Link>
         </Item>
-        <Item key="boosting" style={{ width: "20%", textAlign: "center" }}>
+        <Item key="boosting" style={{ width: "16%", textAlign: "center" }}>
           <Link to="/boosting" style={{ color: "#E8BB3D" }}>
             Бустинг
           </Link>
         </Item>
-        <Item key="guides" style={{ width: "20%", textAlign: "center" }}>
+        <Item key="guides" style={{ width: "16%", textAlign: "center" }}>
           <Link to="/guides" active style={{ color: "#E8BB3D" }}>
             Гайды
           </Link>
         </Item>
-        <Item key="best" style={{ width: "20%", textAlign: "center" }}>
+        <Item key="best" style={{ width: "16%", textAlign: "center" }}>
           <Link to="/best" style={{ color: "#E8BB3D" }}>
             Лучшие
+          </Link>
+        </Item>
+        <Item key="streams" style={{ width: "16%", textAlign: "center" }}>
+          <Link to="/streams" style={{ color: "#E8BB3D" }}>
+            Стримы
           </Link>
         </Item>
       </Menu>
@@ -61,6 +67,7 @@ const App = () => {
           <Route exact path="/boosting" component={Boosting} />
           <Route exact path="/guides" component={Guides} />
           <Route exact path="/best" component={Best} />
+          <Route exact path="/streams" component={StreamPage} />
         </Switch>
       </div>
       <Footer />
