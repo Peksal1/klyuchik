@@ -227,12 +227,9 @@ const GuildMembers: React.FC = () => {
                     cover={
                       <Avatar
                         shape="circle"
-                        src={member.character.profile_url}
+                        src={`/spec/${member.character.class}/${member.character.active_spec_name}.png`}
                         size={64}
                         style={{
-                          backgroundColor: getClassColor(
-                            member.character.class
-                          ),
                           marginTop: 20,
                           marginLeft: 20,
                         }}
@@ -242,7 +239,12 @@ const GuildMembers: React.FC = () => {
                     <Card.Meta
                       title={
                         <a
-                          style={{ color: "black" }}
+                          style={{
+                            color:
+                              member.character.class !== "Priest"
+                                ? getClassColor(member.character.class)
+                                : "black",
+                          }}
                           href={member.character.profile_url}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -256,12 +258,14 @@ const GuildMembers: React.FC = () => {
                       style={{ marginTop: 5 }}
                       description={`${member.character.achievement_points} Очков достижений`}
                     />
+                    <br />
                     <Button
+                      style={{ alignContent: "flex-end", display: "flex" }}
                       onClick={() =>
                         handleOpenPlayerModal(member.character.name)
                       }
                     >
-                      Мои успехи!
+                      Подробнее
                     </Button>
                   </Card>
                 </List.Item>
