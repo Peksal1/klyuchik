@@ -1,24 +1,46 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Popover } from "antd";
+import { Button, Form, Input, message, Popover } from "antd";
+import axios from "axios";
 import React, { useState } from "react";
-import { useAuth } from "..authentification/auth.tsx";
 import { Link } from "react-router-dom";
 
-const LoginPopover = ({ handleSetUser }) => {
-  const { user, login, logout } = useAuth();
+const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
 
   const handleVisibleChange = (visible) => {
     setVisible(visible);
   };
 
+  const onFinish = async (values) => {
+    const { email, password } = values;
+
+    try {
+      const response = await axios.post(
+        "https://klyuchik-v-durku-backend.herokuapp.com/login",
+        { email, password }
+      );
+      const token = response.data.token;
+
+      // Store token in localStorage
+      localStorage.setItem("token", token);
+
+      // Close the popover
+      setVisible(false);
+
+      // Reload the page to update the user state
+      window.location.reload();
+    } catch (error) {
+      message.error("Invalid email or password");
+    }
+  };
+
   const content = (
-    <Form>
+    <Form onFinish={onFinish}>
       <Form.Item
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        name="email"
+        rules={[{ required: true, message: "Please input your email!" }]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Username" />
+        <Input prefix={<UserOutlined />} placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -53,7 +75,7 @@ const LoginPopover = ({ handleSetUser }) => {
         onVisibleChange={handleVisibleChange}
       >
         <Button className="login-button" icon={<UserOutlined />}>
-          {user ? user.name : "Вход"}
+          "Вход"
         </Button>
       </Popover>
     </>
