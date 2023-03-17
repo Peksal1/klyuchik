@@ -1,43 +1,14 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Popover } from "antd";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
   const [user, setUser] = useState<{ name: string } | null>(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await axios.get(
-            "https://klyuchik-v-durku-backend.herokuapp.com/user",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const user = response.data.user;
-          setUser(user);
-          console.log(user);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  const handleVisibleChange = (visible) => {
-    setVisible(visible);
-  };
-
-  const onFinish = async (values) => {
+  const onFinish = useCallback(async (values) => {
     const { email, password } = values;
 
     try {
@@ -67,6 +38,35 @@ const LoginPopover = () => {
     } catch (error) {
       message.error("Invalid email or password");
     }
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get(
+            "https://klyuchik-v-durku-backend.herokuapp.com/user",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const user = response.data.user;
+          setUser(user);
+          console.log(user);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    fetchUser();
+  }, [onFinish]);
+
+  const handleVisibleChange = (visible) => {
+    setVisible(visible);
   };
 
   const content = (
