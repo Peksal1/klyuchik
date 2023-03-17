@@ -1,4 +1,4 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Popover, Dropdown, Menu } from "antd";
 import axios from "axios";
 import React, { useState, useEffect, useCallback } from "react";
@@ -124,21 +124,19 @@ const LoginPopover = () => {
     </Form>
   );
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="1" onClick={handleLogout}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <>
       {user ? (
-        <Dropdown overlay={menu}>
-          <span style={{ color: "white" }}>
-            {user.wow_nickname + ` (${user.name})`}
-          </span>
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item key="logout" onClick={handleLogout}>
+                <LogoutOutlined /> Выйти
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          {user.wow_nickname + ` (${user.name})`}
         </Dropdown>
       ) : (
         <Popover
