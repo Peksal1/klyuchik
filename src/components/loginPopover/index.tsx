@@ -124,25 +124,21 @@ const LoginPopover = () => {
     </Form>
   );
 
+  const menu = (
+    <Menu>
+      <Menu.Item key="1" onClick={handleLogout}>
+        <LogoutOutlined /> Logout
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       {user ? (
-        <Dropdown
-          overlay={
-            <div>
-              <Menu>
-                <Menu.Item
-                  key="logout"
-                  onClick={handleLogout}
-                  icon={<LogoutOutlined />}
-                >
-                  Выйти
-                </Menu.Item>
-              </Menu>
-            </div>
-          }
-        >
-          {user.wow_nickname + ` (${user.name})`}
+        <Dropdown overlay={menu}>
+          <span style={{ color: "white" }}>
+            {user.wow_nickname + ` (${user.name})`}
+          </span>
         </Dropdown>
       ) : (
         <Popover
