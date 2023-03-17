@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Row, Col, Avatar, Typography, Card, Button } from "antd";
 
 const { Title } = Typography;
@@ -48,17 +48,16 @@ const AboutGuildContext = React.createContext<{
 });
 
 const AboutGuild: React.FC = () => {
-  const guildInfo = useContext(AboutGuildContext);
   return (
     <Card
       title={<span style={{ fontSize: 24 }}>О гильдии</span>}
       style={{ maxWidth: 800, margin: "20px auto" }}
     >
       <div style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}>
-        Гильдия{" "}
+        Гильдия
         <span style={{ color: "#8c1616", fontFamily: "WarCraft" }}>
           ⭐ Ключик в дурку ⭐
-        </span>{" "}
+        </span>
         возобновляет игру в World of Warcraft и собирает состав единомышленников
         для максимально позитивного времяпровождения как внутри игры (ключи,
         казуальные рейды), так и вне.

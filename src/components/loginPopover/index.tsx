@@ -23,6 +23,7 @@ const LoginPopover = () => {
           );
           const user = response.data.user;
           setUser(user);
+          console.log(user);
         } catch (error) {
           console.log(error);
         }
