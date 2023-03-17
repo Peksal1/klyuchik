@@ -1,98 +1,16 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Popover } from "antd";
 import React, { useState } from "react";
+import { useAuth } from "..authentification/auth.tsx";
 import { Link } from "react-router-dom";
 
 const LoginPopover = ({ handleSetUser }) => {
+  const { user, login, logout } = useAuth();
   const [visible, setVisible] = useState(false);
-  // const [user, setUser] = useState(null);
 
   const handleVisibleChange = (visible) => {
     setVisible(visible);
   };
-  // const onFinish = async (values) => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://klyuchik-v-durku-backend.herokuapp.com/login",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           email: values.username,
-  //           password: values.password,
-  //         }),
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     const token = data.token;
-
-  //     // Save the token to local storage
-  //     localStorage.setItem("token", token);
-
-  //     // Get the current logged in user
-  //     const userResponse = await fetch(
-  //       "https://klyuchik-v-durku-backend.herokuapp.com/user",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     const userData = await userResponse.json();
-  //     const user = {
-  //       id: userData.id,
-  //       name: userData.name,
-  //       email: userData.email,
-  //       role: userData.role,
-  //     };
-
-  //     handleSetUser(user);
-  //     setUser(user);
-  //     setVisible(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   async function fetchCurrentUser() {
-  //     const token = localStorage.getItem("token");
-
-  //     if (!token) {
-  //       return;
-  //     }
-
-  //     try {
-  //       const response = await fetch(
-  //         "https://klyuchik-v-durku-backend.herokuapp.com/user",
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-
-  //       const data = await response.json();
-  //       const user = {
-  //         id: data.id,
-  //         name: data.name,
-  //         email: data.email,
-  //         role: data.role,
-  //       };
-
-  //       handleSetUser(user);
-  //       setUser(user);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-
-  //   fetchCurrentUser();
-  // }, [handleSetUser]);
 
   const content = (
     <Form>
@@ -135,7 +53,7 @@ const LoginPopover = ({ handleSetUser }) => {
         onVisibleChange={handleVisibleChange}
       >
         <Button className="login-button" icon={<UserOutlined />}>
-          Вход
+          {user ? user.name : "Вход"}
         </Button>
       </Popover>
     </>
