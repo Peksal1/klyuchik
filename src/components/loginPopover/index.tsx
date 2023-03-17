@@ -129,11 +129,17 @@ const LoginPopover = () => {
       {user ? (
         <Dropdown
           overlay={
-            <Menu>
-              <Menu.Item key="logout" onClick={handleLogout}>
-                <LogoutOutlined /> Выйти
-              </Menu.Item>
-            </Menu>
+            <div>
+              <Menu>
+                <Menu.Item
+                  key="logout"
+                  onClick={handleLogout}
+                  icon={<LogoutOutlined />}
+                >
+                  Выйти
+                </Menu.Item>
+              </Menu>
+            </div>
           }
         >
           {user.wow_nickname + ` (${user.name})`}
