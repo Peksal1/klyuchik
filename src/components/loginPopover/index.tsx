@@ -45,7 +45,7 @@ const LoginPopover = () => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const response = await axios.get(
+          const response = await fetch(
             "https://klyuchik-v-durku-backend.herokuapp.com/user",
             {
               headers: {
@@ -53,8 +53,8 @@ const LoginPopover = () => {
               },
             }
           );
-          const user = response.data.user;
-          setUser(user);
+          const userData = await response.json();
+          setUser(userData.name);
           console.log(user);
         } catch (error) {
           console.log(error);
@@ -63,7 +63,7 @@ const LoginPopover = () => {
     };
 
     fetchUser();
-  }, [onFinish]);
+  }, [onFinish, user]);
 
   const handleVisibleChange = (visible) => {
     setVisible(visible);
