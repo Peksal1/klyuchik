@@ -54,7 +54,7 @@ const LoginPopover = () => {
             }
           );
           const userData = await response.json();
-          setUser(userData.name);
+          setUser(userData);
           console.log(user);
         } catch (error) {
           console.log(error);
