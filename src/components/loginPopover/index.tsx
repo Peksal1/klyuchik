@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Popover } from "antd";
+import { Button, Form, Input, message, Popover, Dropdown, Menu } from "antd";
 import axios from "axios";
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
@@ -11,6 +11,26 @@ const LoginPopover = () => {
     name: string;
     wow_nickname: string;
   } | null>(null);
+
+  const handleLogout = useCallback(async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.post(
+        "https://klyuchik-v-durku-backend.herokuapp.com/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      localStorage.removeItem("token");
+      setUser(null); // set user state to null
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const onFinish = useCallback(async (values) => {
     const { email, password } = values;
@@ -59,7 +79,6 @@ const LoginPopover = () => {
           );
           const userData = await response.json();
           setUser(userData);
-          console.log(user);
         } catch (error) {
           console.log(error);
         }
@@ -67,7 +86,6 @@ const LoginPopover = () => {
     };
 
     fetchUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onFinish]);
 
   const handleVisibleChange = (visible) => {
@@ -105,12 +123,23 @@ const LoginPopover = () => {
       </Form.Item>
     </Form>
   );
+
+  const menu = (
+    <Menu>
+      <Menu.Item key="1" onClick={handleLogout}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       {user ? (
-        <span style={{ color: "white" }}>
-          {user.wow_nickname + ` (${user.name})`}
-        </span>
+        <Dropdown overlay={menu}>
+          <span style={{ color: "white" }}>
+            {user.wow_nickname + ` (${user.name})`}
+          </span>
+        </Dropdown>
       ) : (
         <Popover
           content={content}
