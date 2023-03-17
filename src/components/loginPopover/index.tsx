@@ -1,11 +1,36 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Popover } from "antd";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
+  const [user, setUser] = useState<{ name: string } | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get(
+            "https://klyuchik-v-durku-backend.herokuapp.com/user",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const user = response.data.user;
+          setUser(user);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const handleVisibleChange = (visible) => {
     setVisible(visible);
@@ -27,8 +52,17 @@ const LoginPopover = () => {
       // Close the popover
       setVisible(false);
 
-      // Reload the page to update the user state
-      window.location.reload();
+      // Fetch user info and update the state
+      const userResponse = await axios.get(
+        "https://klyuchik-v-durku-backend.herokuapp.com/user",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const user = userResponse.data.user;
+      setUser(user);
     } catch (error) {
       message.error("Invalid email or password");
     }
@@ -68,16 +102,20 @@ const LoginPopover = () => {
 
   return (
     <>
-      <Popover
-        content={content}
-        trigger="click"
-        visible={visible}
-        onVisibleChange={handleVisibleChange}
-      >
-        <Button className="login-button" icon={<UserOutlined />}>
-          "Вход"
-        </Button>
-      </Popover>
+      {user ? (
+        <span>{user.name}</span>
+      ) : (
+        <Popover
+          content={content}
+          trigger="click"
+          visible={visible}
+          onVisibleChange={handleVisibleChange}
+        >
+          <Button className="login-button" icon={<UserOutlined />}>
+            Вход
+          </Button>
+        </Popover>
+      )}
     </>
   );
 };
