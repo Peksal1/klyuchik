@@ -5,6 +5,10 @@ import App from "./App";
 import "../src/styles/index.css";
 import reportWebVitals from "./reportWebVitals";
 
+if (window.location.protocol === "http:") {
+  window.location.href = "https://" + window.location.host;
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
