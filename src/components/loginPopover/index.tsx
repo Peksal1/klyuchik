@@ -63,7 +63,8 @@ const LoginPopover = () => {
     };
 
     fetchUser();
-  }, [onFinish, user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onFinish]);
 
   const handleVisibleChange = (visible) => {
     setVisible(visible);
@@ -100,7 +101,6 @@ const LoginPopover = () => {
       </Form.Item>
     </Form>
   );
-
   return (
     <>
       {user ? (
