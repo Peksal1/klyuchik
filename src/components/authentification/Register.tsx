@@ -8,7 +8,7 @@ const RegistrationPage: React.FC = () => {
   const [members, setMembers] = useState<GuildMember[]>([]);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
+  const [search, setSearch] = useState("");
   const { Option } = Select;
 
   useEffect(() => {
@@ -97,15 +97,24 @@ const RegistrationPage: React.FC = () => {
         label="WoW Nickname"
         rules={[{ required: true, message: "Please select your WoW nickname" }]}
       >
+        <Input.Search
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search for a member..."
+        />
         <Select>
-          {members.map((member) => (
-            <Option value={member.character.name} key={member.character.name}>
-              {member.character.name}
-            </Option>
-          ))}
+          {members
+            .filter((member) =>
+              member.character.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .sort((a, b) => a.character.name.localeCompare(b.character.name))
+            .map((member) => (
+              <Option value={member.character.name} key={member.character.name}>
+                {member.character.name}
+              </Option>
+            ))}
         </Select>
       </Form.Item>
-
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={loading}>
           Register
