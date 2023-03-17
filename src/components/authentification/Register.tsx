@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, notification } from "antd";
 import { GuildMember } from "../best";
+import { useHistory } from "react-router-dom";
 
 const RegistrationPage: React.FC = () => {
   const [form] = Form.useForm();
   const [members, setMembers] = useState<GuildMember[]>([]);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const { Option } = Select;
 
@@ -43,8 +45,17 @@ const RegistrationPage: React.FC = () => {
       );
       const data = await response.json();
       console.log(data); // replace with actual success/failure logic
+      notification.success({
+        message: "Registration successful",
+        description: "You can now log in to your account",
+      });
+      history.push("/");
     } catch (error) {
       console.error(error); // replace with actual error handling
+      notification.error({
+        message: "Registration failed",
+        description: "Please try again later",
+      });
     }
     setLoading(false);
   };
