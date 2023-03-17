@@ -1,0 +1,78 @@
+.container {
+  background-image: url("https://w0.peakpx.com/wallpaper/680/595/HD-wallpaper-warcraft-world-of-warcraft-portal.jpg");
+  background-size: cover;
+  height: 100%;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 24px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+/* Center the form horizontally */
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* Add background image */
+.form-wrapper {
+  background-image: url("https://w0.peakpx.com/wallpaper/680/595/HD-wallpaper-warcraft-world-of-warcraft-portal.jpg");
+  background-size: cover;
+}
+
+/* Style form items */
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* Style form labels */
+.ant-form-item-label > label {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Style form inputs */
+.ant-input {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 4px;
+  color: black;
+  padding: 8px;
+}
+
+/* Style search input */
+.ant-input-search {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+/* Style select input */
+.ant-select {
+  width: 100%;
+}
+
+/* Style form button */
+.ant-btn-login {
+  background-color: #00bfff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+/* Style form button when loading */
+.ant-btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.7;
+}

@@ -3,10 +3,14 @@ import { Button, Form, Input, message, Popover } from "antd";
 import axios from "axios";
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import "./index.css";
 
 const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
-  const [user, setUser] = useState<{ name: string } | null>(null);
+  const [user, setUser] = useState<{
+    name: string;
+    wow_nickname: string;
+  } | null>(null);
 
   const onFinish = useCallback(async (values) => {
     const { email, password } = values;
@@ -104,13 +108,15 @@ const LoginPopover = () => {
   return (
     <>
       {user ? (
-        <span>{user.name}</span>
+        <span style={{ color: "white" }}>
+          {user.wow_nickname + ` (${user.name})`}
+        </span>
       ) : (
         <Popover
           content={content}
           trigger="click"
-          visible={visible}
-          onVisibleChange={handleVisibleChange}
+          open={visible}
+          onOpenChange={handleVisibleChange}
         >
           <Button className="login-button" icon={<UserOutlined />}>
             Вход

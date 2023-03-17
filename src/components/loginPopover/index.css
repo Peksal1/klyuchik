@@ -1,0 +1,66 @@
+/* Styling for the login popover */
+
+.ant-popover-title {
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Styling for the login form */
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+.ant-input {
+  border-radius: 4px;
+}
+
+.ant-input-prefix svg {
+  color: #8c8c8c;
+}
+
+.ant-input:focus {
+  box-shadow: none;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn-primary:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.ant-btn-link {
+  color: #1890ff;
+}
+
+.ant-btn-link:hover {
+  color: #40a9ff;
+}
+
+.register-button {
+  margin-left: 8px;
+  border-color: #e8bb3d;
+  background-color: #e8bb3d;
+}
+
+.register-button:hover {
+  border-color: #d7aa35;
+  background-color: #d7aa35;
+}
+
+/* Styling for the login button */
+.login-button {
+  color: #1890ff;
+  border-color: #1890ff;
+  font-weight: 600;
+}
+
+.login-button:hover {
+  color: #40a9ff;
+  border-color: #40a9ff;
+}
