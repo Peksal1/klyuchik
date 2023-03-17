@@ -74,26 +74,26 @@ const LoginPopover = () => {
     <Form onFinish={onFinish}>
       <Form.Item
         name="email"
-        rules={[{ required: true, message: "Please input your email!" }]}
+        rules={[{ required: true, message: "Введите адрес своей почты!" }]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Email" />
+        <Input prefix={<UserOutlined />} placeholder="Эл. Почта" />
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: "Введите свой пароль!" }]}
       >
         <Input.Password
           prefix={<LockOutlined />}
           type="password"
-          placeholder="Password"
+          placeholder="Пароль"
         />
       </Form.Item>
       <Form.Item>
-        <Button type="link">Forgot password?</Button>
+        <Button type="link">Забыли пароль?</Button>
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Log in
+          Войти
         </Button>
         <Link to="/register" style={{ color: "#E8BB3D" }}>
           <Button className="register-button">Регистрация</Button>
