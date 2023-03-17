@@ -1,9 +1,25 @@
-import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Button, Select } from "antd";
+import { GuildMember } from "../best";
 
 const RegistrationPage: React.FC = () => {
   const [form] = Form.useForm();
+  const [members, setMembers] = useState<GuildMember[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const { Option } = Select;
+
+  useEffect(() => {
+    async function fetchGuildMembers() {
+      const response = await fetch(
+        "https://klyuchik-v-durku-backend.herokuapp.com/guild-members"
+      );
+      const data = await response.json();
+      setMembers(data as GuildMember[]);
+    }
+
+    fetchGuildMembers();
+  }, []);
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
@@ -68,9 +84,15 @@ const RegistrationPage: React.FC = () => {
       <Form.Item
         name="wow_nickname"
         label="WoW Nickname"
-        rules={[{ required: true, message: "Please enter your WoW nickname" }]}
+        rules={[{ required: true, message: "Please select your WoW nickname" }]}
       >
-        <Input />
+        <Select>
+          {members.map((member) => (
+            <Option value={member.character.name} key={member.character.name}>
+              {member.character.name}
+            </Option>
+          ))}
+        </Select>
       </Form.Item>
 
       <Form.Item>

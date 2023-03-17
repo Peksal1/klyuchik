@@ -10,7 +10,7 @@ import {
 } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import PlayerInfoModal from "./PlayerInfoModal.tsx";
-interface GuildMember {
+export interface GuildMember {
   character: {
     name: string;
     class: string;
