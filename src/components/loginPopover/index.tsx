@@ -2,8 +2,9 @@ import { LockOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Popover, Dropdown, Menu } from "antd";
 import axios from "axios";
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import "./index.css";
+import Profile from "../profile/index.tsx";
 
 const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
@@ -127,13 +128,19 @@ const LoginPopover = () => {
   const menu = (
     <Menu>
       <Menu.Item key="profile" onClick={handleLogout}>
-        <LogoutOutlined /> Мой профиль
+        <Link to="/events" style={{ color: "#E8BB3D" }}>
+          Ивенты
+        </Link>
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
         <LogoutOutlined /> Выйти
       </Menu.Item>
     </Menu>
   );
+
+  <Switch>
+    <Route exact path="/profile" component={Profile} />
+  </Switch>;
 
   return (
     <>
