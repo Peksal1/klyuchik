@@ -124,11 +124,11 @@ const LoginPopover = () => {
     </Form>
   );
 
-  const menu = (
+  const authMenu = (
     <Menu>
       <Menu.Item key="profile">
         <Link to="/profile" style={{ color: "#E8BB3D" }}>
-          Ивенты
+          Мой профиль
         </Link>
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
@@ -140,23 +140,25 @@ const LoginPopover = () => {
   return (
     <>
       {!user ? (
-        <Popover
-          content={content}
-          trigger="click"
-          open={visible}
-          onOpenChange={handleVisibleChange}
-        >
+        <>
+          <Popover
+            content={content}
+            trigger="click"
+            open={visible}
+            onOpenChange={handleVisibleChange}
+          >
+            <Button className="login-button" icon={<UserOutlined />}>
+              Вход
+            </Button>
+          </Popover>
           <Button className="login-button" icon={<UserOutlined />}>
-            Вход
-          </Button>
-          <div>
             <Link to="https://klyuchik-v-durku-backend.herokuapp.com/auth/bnet">
               Вход с помощью Battle.net
             </Link>
-          </div>
-        </Popover>
+          </Button>
+        </>
       ) : (
-        <Dropdown overlay={menu}>
+        <Dropdown overlay={authMenu}>
           <span style={{ color: "white" }}>
             {user.wow_nickname + ` (${user.name})`}
           </span>
