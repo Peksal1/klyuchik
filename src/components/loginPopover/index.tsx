@@ -126,7 +126,7 @@ const LoginPopover = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="profile" onClick={handleLogout}>
+      <Menu.Item key="profile">
         <Link to="/profile" style={{ color: "#E8BB3D" }}>
           Ивенты
         </Link>

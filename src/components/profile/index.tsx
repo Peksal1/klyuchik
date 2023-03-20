@@ -38,13 +38,13 @@ const MyProfilePage = () => {
   }, []);
 
   return (
-    <Card title="My Profile">
+    <Card title="Моя учетная запись">
       {isLoading ? (
         <Spin />
       ) : (
         <>
-          <p>Name: {user?.name}</p>
-          <p>Wow Nickname: {user?.wow_nickname}</p>
+          <p>Имя: {user?.name}</p>
+          <p>Ник в вов: {user?.wow_nickname}</p>
         </>
       )}
     </Card>
