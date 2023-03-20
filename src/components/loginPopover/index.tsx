@@ -126,21 +126,18 @@ const LoginPopover = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="1" onClick={handleLogout}>
-        <LogoutOutlined /> Logout
+      <Menu.Item key="profile" onClick={handleLogout}>
+        <LogoutOutlined /> Мой профиль
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        <LogoutOutlined /> Выйти
       </Menu.Item>
     </Menu>
   );
 
   return (
     <>
-      {user ? (
-        <Dropdown overlay={menu}>
-          <span style={{ color: "white" }}>
-            {user.wow_nickname + ` (${user.name})`}
-          </span>
-        </Dropdown>
-      ) : (
+      {!user ? (
         <Popover
           content={content}
           trigger="click"
@@ -151,6 +148,12 @@ const LoginPopover = () => {
             Вход
           </Button>
         </Popover>
+      ) : (
+        <Dropdown overlay={menu}>
+          <span style={{ color: "white" }}>
+            {user.wow_nickname + ` (${user.name})`}
+          </span>
+        </Dropdown>
       )}
     </>
   );
