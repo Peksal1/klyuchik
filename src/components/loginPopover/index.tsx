@@ -1,10 +1,9 @@
-import { LockOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Popover, Dropdown, Menu } from "antd";
+import { LockOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Form, Input, Menu, message, Popover } from "antd";
 import axios from "axios";
-import React, { useState, useEffect, useCallback } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./index.css";
-import Profile from "../profile/index.tsx";
 
 const LoginPopover = () => {
   const [visible, setVisible] = useState(false);
@@ -137,10 +136,6 @@ const LoginPopover = () => {
       </Menu.Item>
     </Menu>
   );
-
-  <Switch>
-    <Route exact path="/profile" component={Profile} />
-  </Switch>;
 
   return (
     <>

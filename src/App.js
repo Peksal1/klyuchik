@@ -10,6 +10,7 @@ import StreamPage from "./components/streams/index.tsx";
 import Best from "./components/best/index.tsx";
 import Footer from "./Footer.tsx";
 import RegistrationPage from "./components/authentification/Register.tsx";
+import Profile from "./components/profile/index.tsx";
 
 const { Item } = Menu;
 
@@ -68,6 +69,7 @@ const App = () => {
           <Route exact path="/guides" component={Guides} />
           <Route exact path="/best" component={Best} />
           <Route exact path="/streams" component={StreamPage} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </div>
       <Footer />
