@@ -152,7 +152,7 @@ const LoginPopover = () => {
             </Button>
           </Popover>
           <Button className="login-button" icon={<UserOutlined />}>
-            <Link to="https://klyuchik-v-durku-backend.herokuapp.com/auth/bnet">
+            <Link href="https://klyuchik-v-durku-backend.herokuapp.com/auth/bnet">
               Вход с помощью Battle.net
             </Link>
           </Button>
