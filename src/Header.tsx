@@ -1,26 +1,26 @@
 import { Avatar, Layout } from "antd";
 import Title from "antd/es/typography/Title";
-import React, { useEffect, useState } from "react";
-import LoginPopover from "./components/loginPopover/index.tsx";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./styles/Header.css";
+import LoginPopover from "./components/loginPopover/index.tsx";
 
 const { Header } = Layout;
 
 function AppHeader() {
-  const [user, setUser] = useState(null);
+  const [bnetProfileName, setBnetProfileName] = useState("");
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("/profile");
-        const userData = await response.json();
-        setUser(userData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    fetchData();
+    // Make API call to retrieve user's Battle.net profile information
+    axios
+      .get("/api/bnet/profile")
+      .then((response) => {
+        // Set the user's Battle.net profile name in state
+        setBnetProfileName(response.data.name);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   return (
@@ -38,10 +38,8 @@ function AppHeader() {
           Ключик в Дурку
         </Title>
       </div>
-      {user ? (
-        <div style={{ color: "white", marginLeft: "auto" }}>
-          {user.battletag}
-        </div>
+      {bnetProfileName ? (
+        <div style={{ color: "white" }}>Hello, {bnetProfileName}!</div>
       ) : (
         <LoginPopover />
       )}
