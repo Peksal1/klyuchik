@@ -13,7 +13,9 @@ function AppHeader() {
   useEffect(() => {
     // Make API call to retrieve user's Battle.net profile information
     axios
-      .get("https://klyuchik-v-durku-backend.herokuapp.com/bnet/profile")
+      .get("https://klyuchik-v-durku-backend.herokuapp.com/bnet/profile", {
+        withCredentials: true,
+      })
       .then((response) => {
         // Set the user's Battle.net profile name in state
         setBnetProfileName(response.data.name);
