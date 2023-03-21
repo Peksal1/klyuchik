@@ -13,7 +13,7 @@ function AppHeader() {
   useEffect(() => {
     const cookies = document.cookie.split("; ");
     const accessTokenCookie = cookies.find((cookie) =>
-      cookie.startsWith("connect.sid=")
+      cookie.startsWith("connect.sid")
     );
     if (accessTokenCookie) {
       const accessToken = accessTokenCookie.split("=")[1];
