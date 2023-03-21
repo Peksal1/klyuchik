@@ -11,27 +11,16 @@ function AppHeader() {
   const [bnetProfileName, setBnetProfileName] = useState("");
 
   useEffect(() => {
-    const cookies = document.cookie.split("; ");
-    console.log(cookies);
-    const accessTokenCookie = cookies.find((cookie) =>
-      cookie.startsWith("connect.sid")
-    );
-    console.log(accessTokenCookie);
-    if (accessTokenCookie) {
-      const accessToken = accessTokenCookie.split("=")[1];
-      // Make API call to retrieve user's Battle.net profile information
-      axios
-        .get("https://klyuchik-v-durku-backend.herokuapp.com/bnet/profile", {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((response) => {
-          // Set the user's Battle.net profile name in state
-          setBnetProfileName(response.data.name);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+    // Make API call to retrieve user's Battle.net profile information
+    axios
+      .get("/api/bnet/profile")
+      .then((response) => {
+        // Set the user's Battle.net profile name in state
+        setBnetProfileName(response.data.name);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   return (
