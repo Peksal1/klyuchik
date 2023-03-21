@@ -12,9 +12,11 @@ function AppHeader() {
 
   useEffect(() => {
     const cookies = document.cookie.split("; ");
+    console.log(cookies);
     const accessTokenCookie = cookies.find((cookie) =>
       cookie.startsWith("connect.sid")
     );
+    console.log(accessTokenCookie);
     if (accessTokenCookie) {
       const accessToken = accessTokenCookie.split("=")[1];
       // Make API call to retrieve user's Battle.net profile information
