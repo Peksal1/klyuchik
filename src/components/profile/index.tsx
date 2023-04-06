@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Card, Spin } from "antd";
+import { Button, Card, Spin } from "antd";
 import axios from "axios";
 import React from "react";
+import AddEventPopover from "../admin/AddEventPopover/index.tsx";
 
 type User = {
   name: string;
   wow_nickname: string;
+  role: string;
 };
 
 const MyProfilePage = () => {
@@ -37,6 +39,10 @@ const MyProfilePage = () => {
     fetchUser();
   }, []);
 
+  const handleAddEventClick = () => {
+    // TODO: Implement logic for adding an event
+  };
+
   return (
     <Card title="Моя учетная запись">
       {isLoading ? (
@@ -45,6 +51,16 @@ const MyProfilePage = () => {
         <>
           <p>Имя: {user?.name}</p>
           <p>Ник в вов: {user?.wow_nickname}</p>
+          {user?.role === "admin" && (
+            <>
+              {/* Placeholder buttons for admin-only actions */}
+              <Button type="primary">Button 2</Button>
+              <Button type="primary">Button 3</Button>
+              <Button type="primary">Button 4</Button>
+              <Button type="primary">Button 5</Button>
+              <AddEventPopover onAddEvent={handleAddEventClick} />
+            </>
+          )}
         </>
       )}
     </Card>

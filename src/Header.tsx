@@ -1,29 +1,28 @@
 import { Avatar, Layout } from "antd";
 import Title from "antd/es/typography/Title";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./styles/Header.css";
+import React from "react";
 import LoginPopover from "./components/loginPopover/index.tsx";
+import "./styles/Header.css";
 
 const { Header } = Layout;
 
 function AppHeader() {
-  const [bnetProfileName, setBnetProfileName] = useState("");
+  // const [bnetProfileName, setBnetProfileName] = useState("");
 
-  useEffect(() => {
-    // Make API call to retrieve user's Battle.net profile information
-    axios.defaults.withCredentials = true;
+  // useEffect(() => {
+  //   // Make API call to retrieve user's Battle.net profile information
+  //   axios.defaults.withCredentials = true;
 
-    axios
-      .get("https://klyuchik-v-durku-backend.herokuapp.com/bnet/profile")
-      .then((response) => {
-        // Set the user's Battle.net profile name in state
-        setBnetProfileName(response.data.name);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  //   axios
+  //     .get("https://klyuchik-v-durku-backend.herokuapp.com/bnet/profile")
+  //     .then((response) => {
+  //       // Set the user's Battle.net profile name in state
+  //       setBnetProfileName(response.data.name);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   return (
     <Header className="header">
@@ -40,11 +39,7 @@ function AppHeader() {
           Ключик в Дурку
         </Title>
       </div>
-      {bnetProfileName ? (
-        <div style={{ color: "white" }}>Hello, {bnetProfileName}!</div>
-      ) : (
-        <LoginPopover />
-      )}
+      <LoginPopover />
     </Header>
   );
 }
