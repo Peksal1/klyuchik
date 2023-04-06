@@ -151,11 +151,11 @@ const LoginPopover = () => {
               Вход
             </Button>
           </Popover>
-          <Button className="login-button" icon={<UserOutlined />}>
+          {/* <Button className="login-button" icon={<UserOutlined />}>
             <a href="https://klyuchik-v-durku-backend.herokuapp.com/auth/bnet">
               Вход с помощью Battle.net
             </a>
-          </Button>
+          </Button> */}
         </>
       ) : (
         <Dropdown overlay={authMenu}>
